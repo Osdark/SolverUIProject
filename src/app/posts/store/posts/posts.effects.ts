@@ -11,25 +11,17 @@ export class PostsEffects {
   postFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.postFile),
-      switchMap(payload =>
-        this.api.postFile(payload.file).pipe(
+      switchMap(payload => {
+        return this.api.postHistory(payload.history).pipe(
+          map(response => response.status === 200 ? actions.postHistorySuccess : actions.postHistoryFailure),
+          catchError(response => actions.postHistoryFailure));
+        /*return this.api.postFile(payload.file).pipe(
           map(response =>
             response.status === 200 ? actions.postFileSuccess : actions.postFileFailure
           ),
-          catchError(response => actions.postFileFailure)
-        )
-      )
-    )
-  );
-  postFileSuccess$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actions.postFileSuccess),
-      switchMap(payload =>
-        this.api.postHistory(payload.history).pipe(
-          map(response => response.status === 200 ? actions.postHistorySuccess : actions.postHistoryFailure),
-          catchError(response => actions.postHistoryFailure)
-        ),
-      )
+          catchError(response => actions.postFileFailure)*/
+        //);
+      })
     )
   );
 

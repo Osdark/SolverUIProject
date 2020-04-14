@@ -11,6 +11,7 @@ import {SolverHistory} from "./store/posts/post.model";
 export class PostsComponent implements OnInit {
   public loading: boolean;
   public form: FormGroup;
+  private file: File;
 
   constructor(
     private postService: PostsService,
@@ -25,10 +26,15 @@ export class PostsComponent implements OnInit {
 
   postFile() {
     const history: SolverHistory = {
-      userId: this.form.value.userId,
+      userId: this.form.get('userId').value,
       hour: Date.now().toString()
     };
-    this.postService.postFile(this.form.value.file, history);
+    this.postService.postFile(this.file, history);
+  }
+
+  setFile(file) {
+    this.file = file.files[0];
+    this.form.get('file').setValue(this.file);
   }
 
   private initForm() {
