@@ -16,10 +16,9 @@ export class ApiPostService {
   constructor(private http: HttpClient) {
   }
 
-  postFile(file: File): Observable<HttpResponse<File>> {
+  postFile(file: FormData): Observable<HttpResponse<Blob>> {
     let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Accept', 'multipart/form-data');
-    return this.http.post<File>(
+    return this.http.post<Blob>(
       `${this.api}${this.fileUrl}`, file, {headers, observe: "response"}
     );
   }

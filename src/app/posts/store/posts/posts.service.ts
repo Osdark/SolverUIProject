@@ -15,7 +15,7 @@ export class PostsService {
   constructor(private store: Store<PostState>) {
   }
 
-  postFile(file: File, history: SolverHistory) {
+  postFile(file: FormData, history: SolverHistory) {
     this.store.dispatch(actions.postFile({file, history}));
   }
 

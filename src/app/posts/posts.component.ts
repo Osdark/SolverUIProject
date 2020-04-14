@@ -29,7 +29,10 @@ export class PostsComponent implements OnInit {
       userId: this.form.get('userId').value,
       hour: Date.now().toString()
     };
-    this.postService.postFile(this.file, history);
+    const formData = new FormData();
+    formData.append('file', this.file, this.file.name);
+
+    this.postService.postFile(formData, history);
   }
 
   setFile(file) {

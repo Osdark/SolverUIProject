@@ -11,17 +11,37 @@ export class PostsEffects {
   postFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.postFile),
-      switchMap(payload => {
-        return this.api.postHistory(payload.history).pipe(
-          map(response => response.status === 200 ? actions.postHistorySuccess : actions.postHistoryFailure),
-          catchError(response => actions.postHistoryFailure));
-        /*return this.api.postFile(payload.file).pipe(
-          map(response =>
-            response.status === 200 ? actions.postFileSuccess : actions.postFileFailure
-          ),
-          catchError(response => actions.postFileFailure)*/
-        //);
-      })
+      switchMap(payload =>
+        this.api.postFile(payload.file).pipe(
+          map(response => {
+            if (response.status === 200) {
+              console.log('success');
+              return actions.postFileSuccess({history: payload.history});
+            } else {
+              return actions.postFileFailure({error: 'Error en la carga del archivo'});
+            }
+          }),
+          catchError(() => actions.postFileFailure)
+        )
+      )
+    )
+  );
+  postFileSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.postFileSuccess),
+      switchMap(payload =>
+        this.api.postHistory(payload.history).pipe(
+          map(response => {
+            if (response.status === 200) {
+              console.log('history success');
+              return actions.postHistorySuccess();
+            } else {
+              return actions.postHistoryFailure({error: 'Error'});
+            }
+          }),
+          catchError(error => actions.postHistoryFailure)
+        )
+      )
     )
   );
 

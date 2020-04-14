@@ -20,9 +20,9 @@ const postsReducer = createReducer(
   initialState,
   on(PostsActions.postFile, state => ({
     ...state,
-    loading: false
+    loading: true
   })),
-  on(PostsActions.postFileSuccess, (state,) => ({
+  on(PostsActions.postFileSuccess, state => ({
     ...state,
     loading: false
   })),

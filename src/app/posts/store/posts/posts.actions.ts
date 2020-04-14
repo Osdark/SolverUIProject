@@ -3,7 +3,7 @@ import {createAction, props} from "@ngrx/store";
 
 export const postFile = createAction(
   '[Home] Post file',
-  props<{ file: File, history: SolverHistory }>()
+  props<{ file: FormData, history: SolverHistory }>()
 );
 
 export const postFileSuccess = createAction(
@@ -17,8 +17,7 @@ export const postFileFailure = createAction(
 );
 
 export const postHistorySuccess = createAction(
-  '[Home] History posted successfully',
-  props<{ history: SolverHistory }>()
+  '[Home] History posted successfully'
 );
 
 export const postHistoryFailure = createAction(
