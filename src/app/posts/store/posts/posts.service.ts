@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {PostState} from './posts.reducer';
-import {loadPosts} from './posts.actions';
+import {Injectable} from "@angular/core";
+import {select, Store} from "@ngrx/store";
+
 import {Observable} from 'rxjs';
-import {Post} from './post.model';
-import {getLoading, getPosts} from './posts.selectors';
+
+import {PostState} from './posts.reducer';
+import * as actions from './posts.actions';
+import {getLoading} from './posts.selectors';
+import {SolverHistory} from "./post.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +15,8 @@ export class PostsService {
   constructor(private store: Store<PostState>) {
   }
 
-  loadPosts() {
-    return this.store.dispatch({type: loadPosts.type});
-  }
-
-  getPosts(): Observable<Post[]> {
-    return this.store.pipe(select(getPosts));
+  postFile(file: File, history: SolverHistory) {
+    this.store.dispatch(actions.postFile({file, history}));
   }
 
   getLoading(): Observable<boolean> {

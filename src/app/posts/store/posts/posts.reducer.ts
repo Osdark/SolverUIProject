@@ -1,32 +1,32 @@
-import {Action, createReducer, on} from '@ngrx/store';
+import {Action, createReducer, on} from "@ngrx/store";
+
 import * as PostsActions from './posts.actions';
-import {Post} from './post.model';
 
 export const postsFeatureKey = 'posts';
 
 export interface PostState {
-  posts: Post[];
   loading: boolean;
   error: string;
+  file: File;
 }
 
 export const initialState: PostState = {
-  posts: null,
-  loading: true,
-  error: null
+  loading: false,
+  error: null,
+  file: null
 };
 
 const postsReducer = createReducer(
   initialState,
-  on(PostsActions.loadPosts, state => ({
-    ...state
-  })),
-  on(PostsActions.loadPostsSuccess, (state, {posts}) => ({
+  on(PostsActions.postFile, state => ({
     ...state,
-    loading: false,
-    posts
+    loading: true
   })),
-  on(PostsActions.loadPostFailure, (state, {error}) => ({
+  on(PostsActions.postFileSuccess, (state,) => ({
+    ...state,
+    loading: false
+  })),
+  on(PostsActions.postFileFailure, (state, {error}) => ({
     ...state,
     loading: false,
     error

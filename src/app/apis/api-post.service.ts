@@ -1,21 +1,30 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {Post} from '../posts/store/posts/post.model';
+
+import {SolverHistory} from "../posts/store/posts/post.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiPostService {
-  api = 'https://jsonplaceholder.typicode.com/';
-  posts = 'posts/';
+  api = 'http://localhost:8595/';
+  fileUrl = 'file/';
+  historyUrl = 'history/';
 
   constructor(private http: HttpClient) {
   }
 
-  getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(
-      `${this.api}${this.posts}`
+  postFile(file: File): Observable<HttpResponse<File>> {
+    return this.http.post<File>(
+      `${this.api}${this.fileUrl}`, file, {observe: "response"}
+    );
+  }
+
+  postHistory(history: SolverHistory): Observable<HttpResponse<SolverHistory>> {
+    return this.http.post<SolverHistory>(
+      `${this.api}${this.historyUrl}`, history, {observe: "response"}
     );
   }
 }

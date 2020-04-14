@@ -1,6 +1,4 @@
-export interface Post {
-  id: string;
+export interface SolverHistory {
   userId: string;
-  title: string;
-  body: string;
+  hour: string;
 }

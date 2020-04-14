@@ -1,16 +1,27 @@
-import {createAction, props} from '@ngrx/store';
-import {Post} from './post.model';
+import {SolverHistory} from './post.model';
+import {createAction, props} from "@ngrx/store";
 
-export const loadPosts = createAction(
-  '[Posts] Load Posts'
+export const postFile = createAction(
+  '[Home] Post file',
+  props<{ file: File, history: SolverHistory }>()
 );
 
-export const loadPostsSuccess = createAction(
-  '[Posts] Load Posts Success',
-  props<{ posts: Post[] }>()
+export const postFileSuccess = createAction(
+  '[Home] File posted successfully',
+  props<{ history: SolverHistory }>()
 );
 
-export const loadPostFailure = createAction(
-  '[Posts] Load Posts Failure',
+export const postFileFailure = createAction(
+  '[Home] Fail in posting file',
+  props<{ error: string }>()
+);
+
+export const postHistorySuccess = createAction(
+  '[Home] History posted successfully',
+  props<{ history: SolverHistory }>()
+);
+
+export const postHistoryFailure = createAction(
+  '[Home] Fail in posting history',
   props<{ error: string }>()
 );
