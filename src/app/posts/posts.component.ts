@@ -34,13 +34,12 @@ export class PostsComponent implements OnInit {
 
   setFile(file) {
     this.file = file.files[0];
-    this.form.get('file').setValue(this.file);
   }
 
   private initForm() {
     this.form = this.formBuilder.group({
-      userId: [{value: ''}, Validators.required],
-      file: [{value: ''}, Validators.required]
+      userId: ['', Validators.required],
+      file: ['', Validators.required],
     })
   };
 }

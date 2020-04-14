@@ -1,11 +1,11 @@
 <nz-spin [nzSpinning]=loading>
-  <form>
+  <form [formGroup]="form">
     <h1>Mudanzas:</h1>
     <label>
-      Identificación usuario: <input>
+      Identificación usuario: <input formControlName="userId">
     </label>
     <br>
-    <input (blur)="setFile($event.target)" type="file" value="Seleccionar archivo">
+    <input (blur)="setFile($event.target)" formControlName="file" type="file" value="Seleccionar archivo">
     <br>
     <input (click)="postFile()" [disabled]="!form.valid" type="submit" value="Subir">
   </form>
