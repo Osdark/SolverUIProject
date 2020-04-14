@@ -1,0 +1,13 @@
+<nz-spin [nzSpinning]=loading>
+  <h1>Posts:</h1>
+
+  <div *ngIf=!loading>
+    <div *ngFor="let post of posts$ | async">
+      <h3>Title: {{post.title}}</h3>
+      <p>
+        {{post.body}}
+      </p>
+      <p>User: {{post.userId}}</p>
+    </div>
+  </div>
+</nz-spin>
